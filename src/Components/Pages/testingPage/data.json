@@ -1,0 +1,32 @@
+{
+    "posts": [
+        {
+            "id": "1",
+            "title": "Create React App",
+            "url": "https://www.youtube.com/watch?v=Y-MX24vmECM"
+        },
+        {
+            "id": "2",
+            "title": "Introducing JSX",
+            "url": "https://www.youtube.com/watch?v=h_n4tDNY6SE"
+        },
+        {
+            "id": "3",
+            "title": "Components and props",
+            "url": "https://www.youtube.com/watch?v=1UM1oGnLsZE"
+           
+        },
+        {
+            "id": "4",
+            "title": "Conditional rendering",
+            "url": "https://www.youtube.com/watch?v=YbBQrjKBOXQ"
+            
+        },
+        {
+            "id": "5",
+            "title": "React Forms",
+            "url": "https://www.youtube.com/watch?v=t3r9xW-sxqs"
+           
+        }
+    ]
+}
