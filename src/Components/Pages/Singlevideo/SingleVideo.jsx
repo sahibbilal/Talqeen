@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { singleArray } from './singleArray'
-import { Link, useParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 function SingleVideo() {
     const single = singleArray;
     return (
