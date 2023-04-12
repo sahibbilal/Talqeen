@@ -2,12 +2,10 @@ import React from 'react'
 import kids from "../../assets/images/kids.jpg"
 import arrow from "../../assets/images/right-arrow.png"
 import { Link } from 'react-router-dom'
-import Home from '../Home/Home'
+
 function About() {
     return (
         <React.Fragment>
-            {/* <Home/> */}
-
                 <section className="about_section layout_padding">
                     <div className="container">
                         <h2 className="main-heading ">
@@ -21,7 +19,7 @@ function About() {
                             <img src={kids} alt="kids" className="img-fluid w-100" />
                         </div>
                         <div className="d-flex justify-content-center mt-5">
-                            <Link to="/about" className="call_to-btn  ">
+                            <Link to="/video" className="call_to-btn  ">
                                 <span>Read More</span>
                                 <img src={arrow} alt="arrow" />
                             </Link>

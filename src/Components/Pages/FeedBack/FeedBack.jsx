@@ -9,7 +9,7 @@ function FeedBack() {
                     <h2 className="main-heading">
                         Our Students Feedback
                     </h2>
-                    <p className="text-center">
+                    <p className="text-center video_para mt-3">
                         There are many variations of passages of Lorem Ipsum available, but the majority hThere are many variations of
                         passages of Lorem Ipsum available, but the majority h
                     </p>
@@ -28,8 +28,8 @@ function FeedBack() {
                                     </span>
                                 </div>
                             </div>
-                            <div className="client_text mt-4">
-                                <p>
+                            <div className="client_text mt-4 ">
+                                <p >
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
                                     ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu

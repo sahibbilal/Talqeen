@@ -1,5 +1,6 @@
 import React from 'react'
-
+import arrow from "../../assets/images/right-arrow.png"
+import { Link } from 'react-router-dom'
 function Contact() {
     return (
         <React.Fragment>
@@ -29,10 +30,11 @@ function Contact() {
                                             <div>
                                                 <input type="text" placeholder="Message" className="input_message" />
                                             </div>
-                                            <div className="d-flex justify-content-center">
-                                                <button type="submit" className="btn_on-hover">
-                                                    Send
-                                                </button>
+                                            <div className="d-flex justify-content-center mt-5">
+                                                <Link to="/about" className="call_to-btn  ">
+                                                    <span>Send</span>
+                                                    <img src={arrow} alt="arrow" />
+                                                </Link>
                                             </div>
                                         </form>
                                     </div>

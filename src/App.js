@@ -1,6 +1,6 @@
 import './App.css';
 import 'owl.carousel/dist/assets/owl.carousel.css';
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Components/Header/Header';
 import About from './Components/Pages/About/About';
@@ -12,8 +12,6 @@ import Contact from './Components/Pages/Contact/Contact';
 import SingleVideo from './Components/Pages/Singlevideo/SingleVideo';
 import Detailspage from './Components/Pages/Detailspage/Detailspage';
 import Home from './Components/Pages/Home/Home';
-
-
 function App() {
   return (
     <div className="App">

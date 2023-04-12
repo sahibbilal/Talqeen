@@ -1,7 +1,7 @@
 import React from 'react'
 import { videoArray } from './videoArray'
 import arrow from "../../assets/images/right-arrow.png"
-import { Link, useParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 function Videos() {
     let array = videoArray;
     return (
@@ -11,8 +11,8 @@ function Videos() {
                     <h2 className="main-heading ">
                         Our Teachers
                     </h2>
-                    <p className="text-center video_para">
-                        Ipsum available, but the majority h
+                    <p className="text-center video_para mt-3">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis dolorum voluptatum eveniet aliquam, repudiandae molestiae in ipsa tenetur doloremque incidunt sit temporibus accusamus omnis ad eum ex placeat distinctio vitae!
                     </p>
                     <div className="teacher_container layout_padding2">
                         <div className="card-deck ">

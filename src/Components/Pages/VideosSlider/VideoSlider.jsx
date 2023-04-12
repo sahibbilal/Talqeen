@@ -16,7 +16,7 @@ function VideoSlider() {
                     <h2 className="main-heading ">
                         Vehicles Facility
                     </h2>
-                    <p className="text-center">
+                    <p className="text-center video_para mt-3">
                         There are many variations of passages of Lorem Ipsum available, but the majority hThere are many variations of
                         passages of Lorem Ipsum available, but the majority h
                     </p>

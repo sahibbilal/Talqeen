@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { singleArray } from './singleArray'
-import { Link, useParams } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+
 function SingleVideo() {
     const single = singleArray;
     return (
@@ -9,6 +10,7 @@ function SingleVideo() {
                 <div className="row">
                     <div className="col-lg-3 hero_detail-box">
                         <h1 className=" pb-4" style={{ fontSize: "40px" }}>Categories</h1>
+                      
                         <ul className="list-unstyled templatemo-accordion cat_list " >
 
                             <li className="pb-3" >
