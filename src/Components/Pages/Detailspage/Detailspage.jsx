@@ -1,45 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
-import YouTube from 'react-youtube'
-let videoIdList = ["AOMpxsiUg2Q", "XM-HJT8_esM"];
-// let array = [];
-export default function Detailspage() {
-    const [videoId, setVideoId] = useState(videoIdList[0]);
-    let [update, setUpdate] = useState([])
-    const [i, setIndex] = useState(0);
+import YouTube from '@u-wave/react-youtube';
+let videoIdList = ["AOMpxsiUg2Q", "XM-HJT8_esM", "r2pdwduPS5U"];
 
-    const opts = {
+export default function Detailspage() {
+    const [videoId, setVideoId] = useState(videoIdList[0])
+    const a = useRef(0);
+    const option = {
         height: '390',
         width: '640',
         playerVars: {
             autoplay: 1,
         },
     };
-    useEffect(() => {
-        setVideoId(videoIdList[i]);
-    }, [i]);
+    
+    const handleEnd = () => {
+        setVideoId(videoIdList[++a.current]);
+    };
+    
 
-    const onEnd = () => {
-        // i++;
-        // setVideoId(videoIdList[i]);
-        setIndex(i => i + 1);
-
-        // for (let item of videoIdList) {
-        //     const newArray = [];
-        //     newArray.push(item);
-
-        //     if (newArray.indexOf(item) !== -1) {
-        //         console.log(newArray.indexOf(item))
-        //         return true
-
-        //     }
-        //     setUpdate(newArray)
-
-        // }
-    }
-    const stopVideo = (e) => {
-        const player = e.target;
-        console.log(e.target);
-        player.stopVideo();
+    const onReady = (event) => {
+        // access to player in all event handlers via event.target
+        event.target.pauseVideo();
     }
     return (
         <React.Fragment>
@@ -50,30 +31,25 @@ export default function Detailspage() {
                             <h2 className="main-heading  ">
                                 {/* Video Title */}
                             </h2>
-                            <YouTube videoId={videoId}
-                                opts={opts} onEnd={onEnd} onPause={stopVideo} />
+                            <YouTube video={videoId}
+                                opts={option}
+                                onEnd={handleEnd}
+                                onReady={onReady}
+                            />
                         </div>
                         <div className="col-lg-5 mt-5">
-                            {/* {
-                                update.map((item) => {
-                                    return (
-                                        <div>
-                                            <img className="w-25" src={"http://img.youtube.com/vi/" + item.videoId + "/0.jpg"} />                                        </div>
-                                    )
-                                })
-                            } */}
-                            {/* {
-                                videoId.map((item) => {
+                            {
+                                videoIdList.map((item) => {
                                     return (
                                         <div className="card d-flex m-2" style={{ flexDirection: "row" }} onClick={() => {
-                                            setVideoId(item.videoID)
+                                            setVideoId(item.videoId)
                                         }}>
-                                            <img className="w-25" src={"http://img.youtube.com/vi/" + item.videoID + "/0.jpg"} />
+                                            <img className="w-25" src={"http://img.youtube.com/vi/" + item.videoId + "/0.jpg"} />
                                             <p className='p-2'>{item.videotitle}</p>
                                         </div>
                                     )
                                 })
-                            } */}
+                            }
 
                         </div>
                     </div>
