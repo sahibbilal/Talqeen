@@ -177,6 +177,7 @@ a:focus {
 
 .custom_nav-container .navbar-toggler {
   outline: none;
+  background-color: #fec913 ;
 }
 
 .custom_nav-container .navbar-toggler .navbar-toggler-icon {

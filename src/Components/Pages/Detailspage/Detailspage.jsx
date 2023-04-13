@@ -5,13 +5,6 @@ let videoIdList = ["AOMpxsiUg2Q", "XM-HJT8_esM", "r2pdwduPS5U"];
 export default function Detailspage() {
     const [videoId, setVideoId] = useState(videoIdList[0])
     const a = useRef(0);
-    // const option = {
-    //     height: '390',
-    //     width: '640',
-    //     playerVars: {
-    //         autoplay: 1,
-    //     },
-    // };
 
     const handleEnd = () => {
         setVideoId(videoIdList[++a.current]);
@@ -30,16 +23,17 @@ export default function Detailspage() {
                         <h2 className="main-heading  ">
                             Video Title
                         </h2>
-                        <div className="col-lg-7 mt-5 ">
-
+                        <div className="col-lg-12  mt-5 ">
                             <YouTube video={videoId}
-                                width={600}
-                                height={400}
+                                width={'100%'}
+                                height={500}
                                 onEnd={handleEnd}
                                 onReady={onReady}
+                            // autoplay
+                            // controls={false}
                             />
                         </div>
-                        <div className="col-lg-5 mt-5">
+                        <div className="col-lg-5   mt-5">
                             {
                                 videoIdList.map((item) => {
                                     return (

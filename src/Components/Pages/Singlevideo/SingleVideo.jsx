@@ -68,7 +68,7 @@ function SingleVideo() {
                             </div>
                         </ul>
                     </div>
-                    <div className="col-lg-9 single_video">
+                    <div className="col-lg-9 single_video layout_padding">
                         <div className="row">
                             {
                                 display.map((item, index) => {
@@ -92,13 +92,13 @@ function SingleVideo() {
                                 })
                             }
                         </div>
-                        <div div="row">
+                        {/* <div div="row">
                             <ul className="pagination pagination-lg justify-content-end">
                                 <li className="page-item disabled">
                                     <Link className="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" to="" tabIndex={-1}>1</Link>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
