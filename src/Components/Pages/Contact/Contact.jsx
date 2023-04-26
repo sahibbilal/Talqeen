@@ -1,7 +1,10 @@
 import React from 'react'
-import arrow from "../../assets/images/right-arrow.png"
-import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 function Contact() {
+    let data = useForm();
+    const Contact = (data) => {
+        console.log(data);
+    }
     return (
         <React.Fragment>
             <section className="contact_section layout_padding">
@@ -17,12 +20,14 @@ function Contact() {
                             <div className="row">
                                 <div className="col-md-6 mx-auto">
                                     <div className="contact-form">
-                                        <form action>
+                                        <form onSubmit={data.handleSubmit(Contact)}>
                                             <div>
-                                                <input type="text" placeholder="Name" />
+                                                <input type="text" id="user_name" placeholder="Name"   {...data.register("user_name")} />
+                                                {data.formState.errors.user_name && <div className="error"> Please enter your First Name</div>}
                                             </div>
                                             <div>
-                                                <input type="text" placeholder="Phone Number" />
+                                                <input type="text" placeholder="Phone Number"   {...data.register("example")} />
+
                                             </div>
                                             <div>
                                                 <input type="email" placeholder="Email" />
@@ -30,11 +35,14 @@ function Contact() {
                                             <div>
                                                 <input type="text" placeholder="Message" className="input_message" />
                                             </div>
-                                            <div className="d-flex justify-content-center mt-5">
-                                                <Link to="/about" className="call_to-btn  ">
-                                                    <span>Send</span>
-                                                    <img src={arrow} alt="arrow" />
-                                                </Link>
+                                            <div className="d-flex justify-content-center">
+                                                <button
+                                                    type="submit"
+                                                    className="btn btn-warning btn-lg"
+                                                    style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem", color: "#fefeff" }}
+                                                >
+                                                    send
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -43,8 +51,8 @@ function Contact() {
                         </div>
                     </div>
                 </div>
-            </section>
-        </React.Fragment>
+            </section >
+        </React.Fragment >
     )
 }
 

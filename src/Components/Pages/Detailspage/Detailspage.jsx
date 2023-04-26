@@ -3,6 +3,7 @@ import YouTube from '@u-wave/react-youtube';
 let videoIdList = ["AOMpxsiUg2Q", "XM-HJT8_esM", "r2pdwduPS5U"];
 
 export default function Detailspage() {
+    
     const [videoId, setVideoId] = useState(videoIdList[0])
     const a = useRef(0);
 

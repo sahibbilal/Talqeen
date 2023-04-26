@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { videoArray } from './videoArray'
 import arrow from "../../assets/images/right-arrow.png"
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 function Videos() {
+    // here show the data of api 
+    const [user, setuser] = useState()
+    const sendData = async () => {
+        const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}admin/videos`);
+        setuser(data);
+        console.log(data);
+    }
+    useEffect(() => {
+        sendData()
+    }, [])
+
     let array = videoArray;
     return (
         <React.Fragment>
@@ -12,7 +25,7 @@ function Videos() {
                         Our Teachers
                     </h2>
                     <p className="text-center video_para mt-3">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis dolorum voluptatum eveniet aliquam, repudiandae molestiae in ipsa tenetur doloremque incidunt sit temporibus accusamus omnis ad eum ex placeat distinctio vitae!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis dolorum voluptatum eveniet aliquam, repudiandae molestiae in ipsa tenetur doloremque incidunt sit temporibus accusamus omnis ad eum ex placeat distinctio vitae!
                     </p>
                     <div className="teacher_container layout_padding2">
                         <div className="card-deck ">

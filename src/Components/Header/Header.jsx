@@ -35,7 +35,7 @@ function Header() {
                                                 <Link className="nav-link" to="/Categories"> Categories </Link>
                                             </li>
                                             <li className="nav-item">
-                                                <Link className="nav-link" to="/feedback">Contact Us</Link>
+                                                <Link className="nav-link" to="/contact">Contact Us</Link>
                                             </li>
                                         </ul>
                                         <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">

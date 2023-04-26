@@ -4,7 +4,25 @@ import { Link } from 'react-router-dom';
 
 function SingleVideo() {
     // here get the array item and store into variable
-    const single = singleArray;
+    const single = singleArray.map((item) => {
+        let { id, img, title } = item
+        return (
+            <div className="col-md-4" key={id}>
+                <div className="card mb-4 product-wap rounded-0">
+                    <Link to={`/videodetail/${item.id}`}>
+                        <div className="card rounded-0">
+                            <img className="card-img rounded-0 img-fluid" src={img} alt="single -video" />
+                            <div className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            </div>
+                        </div>
+                    </Link>
+                    <div className="card-body">
+                        <Link to={`/videodetail/${item.id}`} className="h3 text-decoration-none"><p>{title}</p></Link>
+                    </div>
+                </div>
+            </div>
+        )
+    });
 
     // update and display the item one by one 
     const [display, setDisplay] = useState(single);
@@ -71,34 +89,9 @@ function SingleVideo() {
                     <div className="col-lg-9 single_video layout_padding">
                         <div className="row">
                             {
-                                display.map((item, index) => {
-                                    let { img, title } = item
-                                    return (
-                                        <div className="col-md-4" key={index}>
-                                            <div className="card mb-4 product-wap rounded-0">
-                                                <Link to={`/videodetail/${item.id}`}>
-                                                    <div className="card rounded-0">
-                                                        <img className="card-img rounded-0 img-fluid" src={img} alt="single -video" />
-                                                        <div className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                                <div className="card-body">
-                                                    <Link to={`/videodetail/${item.id}`} className="h3 text-decoration-none"><p>{title}</p></Link>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })
+                                display      
                             }
                         </div>
-                        {/* <div div="row">
-                            <ul className="pagination pagination-lg justify-content-end">
-                                <li className="page-item disabled">
-                                    <Link className="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" to="" tabIndex={-1}>1</Link>
-                                </li>
-                            </ul>
-                        </div> */}
                     </div>
                 </div>
             </div>
