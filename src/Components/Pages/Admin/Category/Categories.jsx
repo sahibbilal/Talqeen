@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import AdminSide from './AdminSide'
+
 import AddCategories from './AddCategories'
 import axios from 'axios'
 import CategoryEdit from './CategoryEdit'
+import AdminSide from '../AdminSide'
 
 function Categories() {
     // api data get 
@@ -23,16 +24,6 @@ function Categories() {
     useEffect(() => {
         getVideo();
     }, [])
-    // code for updateData
-    // const updateData = async (id) => {
-    //     let res = await axios.put(`${process.env.REACT_APP_BASE_URL}admin/video/category/${id}`, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + token
-    //         },
-    //     });
-    //     setUpdateItem(res)
-    // }
     const displayData = video.map((item) => {
         const { id, name } = item
         return (

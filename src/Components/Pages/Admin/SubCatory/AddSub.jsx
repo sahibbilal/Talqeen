@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -13,8 +13,10 @@ function AddSub() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [itemData, setDataItem] = useState([])
+    const token = localStorage.getItem('token');
     const subCategory = async (data) => {
-        const token = localStorage.getItem('token');
+
         const formData = {
             name: data.name,
             category_id: data.category_id
@@ -22,19 +24,38 @@ function AddSub() {
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
-
         };
         axios.post(`${process.env.REACT_APP_BASE_URL}admin/video/subcategory`, formData, { headers })
             .then(response => {
                 console.log('Data saved successfully:', response.data);
-
             })
             .catch(error => {
                 console.error('Failed to save data:', error);
             });
         move('/subCategories')
     }
-
+    const getCategory = async () => {
+        let reqOptions1 = {
+            url: `${process.env.REACT_APP_BASE_URL}admin/video/category`,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        }
+        let resp = await axios.request(reqOptions1)
+        setDataItem(resp.data.data)
+    }
+    useEffect(() => {
+        getCategory();
+    }, [])
+    const display = itemData.map((item) => {
+        return (
+            <>
+                <option >{item.id}</option>
+            </>
+        )
+    })
     return (
         <React.Fragment>
             <Button onClick={handleShow} variant='warning' style={{ color: "white" }}>
@@ -61,9 +82,7 @@ function AddSub() {
                             <Form.Select aria-label="Default select example"
                                 {...data.register("category_id", { required: true })}>
                                 <option>category_id</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                {display}
                             </Form.Select>
                             {data.formState.errors.category_id && data.formState.errors.category_id.type == 'required' && <div className="error"> Select One option AtLeast</div>}
                         </Form.Group>

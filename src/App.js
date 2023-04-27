@@ -1,6 +1,6 @@
 import './App.css';
 import 'owl.carousel/dist/assets/owl.carousel.css';
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import Header from './Components/Header/Header';
@@ -14,17 +14,18 @@ import SingleVideo from './Components/Pages/Singlevideo/SingleVideo';
 import Detailspage from './Components/Pages/Detailspage/Detailspage';
 import Home from './Components/Pages/Home/Home';
 import Admin from './Components/Pages/Admin/Admin';
-import AdminVideo from './Components/Pages/Admin/AdminVideo';
-import AddVideo from './Components/Pages/Admin/AddVideo';
-import SubCategories from './Components/Pages/Admin/SubCategories';
-import User from './Components/Pages/Admin/User';
-import Categories from './Components/Pages/Admin/Categories';
+import AdminVideo from './Components/Pages/Admin/Video/AdminVideo';
+import Categories from './Components/Pages/Admin/Category/Categories';
+import SubCategories from './Components/Pages/Admin/SubCatory/SubCategories';
+import User from './Components/Pages/Admin/User/User'
 import Registration from './Components/Pages/Admin/Registration';
 import Login from './Components/Pages/Admin/Login';
 import PrivateRoute from './Components/Pages/Admin/PrivateRoute ';
 import MainRoute from './Components/Header/MainRoute';
 import Notfound from './Components/Pages/NotFound/Notfound';
-import Edit from './Components/Pages/Admin/Edit';
+
+
+
 function App() {
 
   return (

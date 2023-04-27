@@ -12,7 +12,7 @@ function AddVideo() {
     const handleShow = () => setShow(true);
     const [file, setFile] = useState(null);
 
-    const [Item, setDataItem] = useState();
+    const [Item, setDataItem] = useState([]);
     // Image sizing defined
     const handleImage = (event) => {
         const selectedFile = event.target.files[0];
@@ -26,7 +26,7 @@ function AddVideo() {
         }
     }
     const onSubmit = async (data) => {
-      
+
         const formData = {
             name: data.name,
             description: data.description,
@@ -58,19 +58,18 @@ function AddVideo() {
             },
         }
         let resp = await axios.request(reqOptions1)
-        console.log(resp.data.data, "addvideo cate");
-        setDataItem(resp.data)
+        setDataItem(resp.data.data)
     }
     useEffect(() => {
         getCategory();
     }, [])
-    // const display = Item.map((item) => {
-    //     return (
-    //         <>
-    //             <option>{item.id}</option>
-    //         </>
-    //     )
-    // })
+    const display = Item.map((item) => {
+        return (
+            <>
+                <option>{item.id}</option>
+            </>
+        )
+    })
     return (
         <React.Fragment>
             <Button onClick={handleShow} variant='warning' style={{ color: "white" }}>
@@ -117,9 +116,9 @@ function AddVideo() {
                         </Form.Group>
                         <Form.Group className="mb-3" id="category_id">
                             <Form.Select aria-label="Default select example"
-                            // {...data.register("category_id", { required: true })}
-                            >
-                                {/* {display} */}
+                                {...data.register("category_id", { required: true })} >
+                                <option>Categories</option>
+                                {display}
                             </Form.Select>
                             {data.formState.errors.category_id && data.formState.errors.category_id.type == 'required' && <div className="error"> Select One option AtLeast</div>}
                         </Form.Group>

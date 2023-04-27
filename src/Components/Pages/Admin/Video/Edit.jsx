@@ -14,7 +14,7 @@ function Edit(props) {
     const [category, setCategory] = useState(props.category_id);
     const [status, setStatus] = useState(props.status);
     const [description, setDescription] = useState(props.description);
-    const [showDisply, setshowDisplay] = useState();
+    const [showDisply, setshowDisplay] = useState([]);
     const updateData = async (e) => {
         e.preventDefault();
         const formData = {
@@ -41,19 +41,18 @@ function Edit(props) {
         }
         let resp = await axios.request(reqOptions1)
         console.log(resp.data.data, "addvideo cate");
-        setshowDisplay(resp.data)
+        setshowDisplay(resp.data.data)
     }
     useEffect(() => {
         getCategory();
     }, [])
-    // let displayItem = showDisply.map((item) => {
-    //     return (
-    //         <>
-    //             <option>Categories</option>
-    //             <option >{item.id}</option>
-    //         </>
-    //     )
-    // })
+    let displayItem = showDisply.map((item) => {
+        return (
+            <>
+                <option >{item.id}</option>
+            </>
+        )
+    })
     return (
         <React.Fragment>
             <Button class="btn btn-warning ms-2" style={{ color: "#082465 !important", background: "none", border: 'none', padding: "0" }} onClick={handleShow}>
@@ -87,7 +86,7 @@ function Edit(props) {
                         <Form.Group className="mb-3">
                             <Form.Label>Video category_id</Form.Label>
                             <Form.Select aria-label="Default select example" id="category_id" value={category} onChange={(e) => setCategory(e.target.value)}>
-                                {/* {displayItem} */}
+                                {displayItem}
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">

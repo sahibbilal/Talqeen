@@ -1,12 +1,9 @@
 import React from 'react'
 import "./admin.css"
 import AdminSide from './AdminSide'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { adminDashbord } from './adminDashbord'
-
-
 function Admin() {
-    let move = useNavigate();
     let Dashboard = adminDashbord.map((item) => {
         let { id, name, url } = item
         return (

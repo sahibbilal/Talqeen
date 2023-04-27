@@ -1,25 +1,58 @@
-import React from 'react'
-import AdminSide from './AdminSide'
-import { AllVideo } from './AllVideo'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import AdminSide from '../AdminSide'
+import UserEdit from './UserEdit'
 
 function User() {
-    let display = AllVideo.map((item) => {
-        let { id, name, status } = item
+    const [video, setVideo] = useState([])
+    const token = localStorage.getItem('token')
+    const getVideo = async () => {
+        let reqOptions = {
+            url: `${process.env.REACT_APP_BASE_URL}admin/users`,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        }
+        let response = await axios.request(reqOptions);
+        setVideo(response.data.data);
+        console.log(response.data.data, "user defined");
+    }
+    const handleDelete = async (post) => {
+        setVideo(video.filter((d) => d.id !== post.id))
+        await axios.delete(`${process.env.REACT_APP_BASE_URL}admin/users/${post.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        });
+    }
+    useEffect(() => {
+        getVideo();
+    }, [])
+
+    let display = video.map((post) => {
+        let { id, name, status, email, password, role } = post
         return (
             <tr>
                 <th scope="row">{id}</th>
                 <td>{name}</td>
                 <td>{status}</td>
-                <td>{name}</td>
-                <td>@mdo</td>
+                <td>{email}</td>
+                <td>{password}</td>
+                <td>{role}</td>
                 <td>+923....</td>
+                
 
                 <td>
-                    <button type="button" class="btn btn-warning " style={{ color: "#082465 !important" }}>
+                    <button type="button" class="btn btn-warning " style={{ color: "#082465 !important" }}
+                        onClick={() => handleDelete(post)}
+                    >
                         <i class="fas fa-trash-alt"></i>
                     </button>
                     <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
-                        <i class="fas fa-pen"></i>
+                        <UserEdit id={id} name={name} status={status} email={email} role={role} password={password} />
                     </button>
                     <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
                         <i class="far fa-eye"></i>
@@ -57,11 +90,16 @@ function User() {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Father Name</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Country</th>
-                                    <th scope="col">Mobile</th>
+                                    {/* <th scope="col">Father Name</th> */}
+                                    {/* <th scope="col">City</th>
+                                    <th scope="col">Country</th> */}
                                     <th scope="col">Status</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Role</th>
+                                    {/* <th scope="col">Status</th> */}
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Operation</th>
                                 </tr>
                             </thead>
                             <tbody>
