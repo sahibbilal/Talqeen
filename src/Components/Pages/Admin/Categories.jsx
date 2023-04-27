@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import AdminSide from './AdminSide'
 import AddCategories from './AddCategories'
 import axios from 'axios'
+import CategoryEdit from './CategoryEdit'
 
 function Categories() {
     // api data get 
     const [video, setVideo] = useState([])
     const token = localStorage.getItem('token')
-    const [updateItem, setUpdateItem] = useState();
     const getVideo = async () => {
         let reqOptions = {
             url: `${process.env.REACT_APP_BASE_URL}admin/video/category`,
@@ -24,15 +24,15 @@ function Categories() {
         getVideo();
     }, [])
     // code for updateData
-    const updateData = async (id) => {
-        let res = await axios.put(`${process.env.REACT_APP_BASE_URL}admin/video/category/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-        });
-        setUpdateItem(res)
-    }
+    // const updateData = async (id) => {
+    //     let res = await axios.put(`${process.env.REACT_APP_BASE_URL}admin/video/category/${id}`, {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': 'Bearer ' + token
+    //         },
+    //     });
+    //     setUpdateItem(res)
+    // }
     const displayData = video.map((item) => {
         const { id, name } = item
         return (
@@ -40,10 +40,8 @@ function Categories() {
                 <th scope="row">{id}</th>
                 <td>{name}</td>
                 <td>
-                    <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }} onClick={() => {
-                        updateData(id)
-                    }}>
-                        <i class="fas fa-pen"></i>
+                    <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
+                        <CategoryEdit id={id} name={name} />
                     </button>
                     <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
                         <i class="far fa-eye"></i>

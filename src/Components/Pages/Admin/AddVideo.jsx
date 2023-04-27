@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
-
 function AddVideo() {
     let data = useForm()
-    let move = useNavigate();
+    const token = localStorage.getItem('token');
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [file, setFile] = useState(null);
+
+    const [Item, setDataItem] = useState();
+    // Image sizing defined
     const handleImage = (event) => {
         const selectedFile = event.target.files[0];
         console.log(selectedFile);
         const fileSizeKB = Math.round(selectedFile.size / 1024); // Convert to KB
         const maxSizeKB = 1024; // Maximum file size in KB
-
         if (fileSizeKB <= maxSizeKB) {
             setFile(selectedFile);
         } else {
@@ -26,21 +26,20 @@ function AddVideo() {
         }
     }
     const onSubmit = async (data) => {
-        const token = localStorage.getItem('token');
+      
         const formData = {
             name: data.name,
             description: data.description,
             url: data.url,
-            status: '',
-            // image:,
-            category_id: 13,
-            subcategory_id: ''
+            status: data.status,
+            image: data.image,
+            category_id: data.category_id,
+            subcategory_id: data.subcategory_id
         };
         const headers = {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         };
-
         axios.post(`${process.env.REACT_APP_BASE_URL}admin/videos`, formData, { headers })
             .then(response => {
                 console.log('Data saved successfully:', response.data);
@@ -48,8 +47,30 @@ function AddVideo() {
             .catch(error => {
                 console.error('Failed to save data:', error);
             });
-
     }
+    const getCategory = async () => {
+        let reqOptions1 = {
+            url: `${process.env.REACT_APP_BASE_URL}admin/video/category`,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        }
+        let resp = await axios.request(reqOptions1)
+        console.log(resp.data.data, "addvideo cate");
+        setDataItem(resp.data)
+    }
+    useEffect(() => {
+        getCategory();
+    }, [])
+    // const display = Item.map((item) => {
+    //     return (
+    //         <>
+    //             <option>{item.id}</option>
+    //         </>
+    //     )
+    // })
     return (
         <React.Fragment>
             <Button onClick={handleShow} variant='warning' style={{ color: "white" }}>
@@ -65,8 +86,7 @@ function AddVideo() {
                     <Modal.Title>Video</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={data.handleSubmit(onSubmit)}>
-
+                    <Form onSubmit={data.handleSubmit(onSubmit)} encType="multipart/form-data">
                         <Form.Group className="mb-3">
                             <Form.Label>Video Name</Form.Label>
                             <Form.Control id="name" type="text" placeholder="Video Name"  {...data.register("name", { required: true, })} />
@@ -75,22 +95,17 @@ function AddVideo() {
                         <Form.Group className="mb-3" id="url">
                             <Form.Label>Video Url</Form.Label>
                             <Form.Control type="text" placeholder="Video Url"
-                                {...data.register('url', {
-                                    required: true, validate: ((data) => {
-                                        if ((/^(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-                                            return true
-
-                                        } else {
-                                            return false;
-                                        }
-                                    })
-                                })}
-                            />
+                                {...data.register('url', { required: true })} />
                             {data.formState.errors.url && data.formState.errors.url.type == 'required' && <div className="error"> Please enter Correct  Url</div>}
                         </Form.Group>
                         <Form.Group className="mb-3" id="description">
                             <Form.Label>Video Description</Form.Label>
                             <Form.Control as="textarea" rows={3}   {...data.register("description", { required: true })} />
+                            {data.formState.errors.description && data.formState.errors.description.type == 'required' && <div className="error"> Please Mention the video Description</div>}
+                        </Form.Group>
+                        <Form.Group className="mb-3" id="status">
+                            <Form.Label>Status</Form.Label>
+                            <Form.Control id="name" type="text" placeholder="Status"  {...data.register("status", { required: true, })} />
                             {data.formState.errors.description && data.formState.errors.description.type == 'required' && <div className="error"> Please Mention the video Description</div>}
                         </Form.Group>
                         <Form.Group className="mb-3" id="image">
@@ -100,27 +115,21 @@ function AddVideo() {
                             />
                             {data.formState.errors.image && data.formState.errors.image.type == 'required' && <div className="error"> Please upload the Image less then 1MB</div>}
                         </Form.Group>
-
                         <Form.Group className="mb-3" id="category_id">
                             <Form.Select aria-label="Default select example"
-                                {...data.register("category_id", { required: true })}>
-                                <option>category_id</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            // {...data.register("category_id", { required: true })}
+                            >
+                                {/* {display} */}
                             </Form.Select>
                             {data.formState.errors.category_id && data.formState.errors.category_id.type == 'required' && <div className="error"> Select One option AtLeast</div>}
                         </Form.Group>
                         <Form.Group className="mb-3" id="subcategory_id">
                             <Form.Select aria-label="Default select example"
-                                {...data.register("subcategory_id", { required: true })}
-
-                            >
+                                {...data.register("subcategory_id", { required: true })}>
                                 <option>Sub Categories</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
-
                                 {data.formState.errors.subcategory_id && data.formState.errors.subcategory_id.type == 'required' && <div className="error"> Select One option AtLeast</div>}
                             </Form.Select>
                         </Form.Group>
@@ -130,12 +139,10 @@ function AddVideo() {
                             </Button>
                             <Button variant="warning" type="submit">
                                 Save
-
                             </Button>
                         </Modal.Footer>
                     </Form>
                 </Modal.Body>
-
             </Modal>
 
         </React.Fragment>

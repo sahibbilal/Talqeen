@@ -3,14 +3,12 @@ import AdminSide from './AdminSide'
 import AddVideo from './AddVideo'
 import "./admin.css"
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import Edit from './Edit'
 
 function AdminVideo() {
     // api data get 
     const token = localStorage.getItem('token')
     const [video, setVideo] = useState([])
-    const [deleteItem, setDeleteItem] = useState();
-    const [updateItem, setUpdateItem] = useState();
     const getVideo = async () => {
         let reqOptions = {
             url: `${process.env.REACT_APP_BASE_URL}admin/videos`,
@@ -21,60 +19,46 @@ function AdminVideo() {
             },
         }
         let response = await axios.request(reqOptions);
+
+
         console.log(response.data.data);
         setVideo(response.data.data);
     }
     useEffect(() => {
         getVideo();
+     
     }, [])
 
     // code for deleteData 
-    const deleteData = async (id) => {
-        const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}admin/videos/${id}`, {
+    const deleteData = async (post) => {
+        setVideo(video.filter((d) => d.id !== post.id))
+        await axios.delete(`${process.env.REACT_APP_BASE_URL}admin/videos/${post.id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
         });
-        setDeleteItem(res)
     }
-    // code for updateData
-    const updateData = async (id) => {
-        let res = await axios.put(`${process.env.REACT_APP_BASE_URL}admin/videos/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-        });
-        setUpdateItem(res)
-    }
-    console.log(video);
-    const displayData = video.map((item) => {
-        const { id, name, url, categories, image, status } = item
-        console.log('testing ', item);
+    const displayData = video.map((post) => {
+        const { id, name, url, category_id, image, status, subcategory_id, description } = post
         return (
             <tr>
                 <th scope="row">{id}</th>
                 <td>{name}</td>
                 <td>{url}</td>
-                <td>{categories}</td>
+                <td>{category_id}</td>
                 <td><img src={image} alt='image' /></td>
-                {/* <td>{status}</td> */}
+                <td>{subcategory_id}</td>
+                <td>{description}</td>
+                <td>{status}</td>
                 <td>
                     <button type="button" class="btn btn-warning " style={{ color: "#082465 !important" }} onClick={() => {
-                        deleteData(id)
+                        deleteData(post)
                     }}>
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                    <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}
-                        onClick={() => {
-                            updateData(id)
-                        }}
-                    >
-                        <Link to={`/addvideo/${id}`}>
-                            <i class="fas fa-pen"></i>
-                        </Link>
-
+                    <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
+                        <Edit id={id} name={name} url={url} category_id={category_id} status={status} description={description} />
                     </button>
                     <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
                         <i class="far fa-eye"></i>
@@ -115,7 +99,10 @@ function AdminVideo() {
                                 <th scope="col">Url</th>
                                 <th scope="col">Categories</th>
                                 <th scope="col">Image</th>
+                                <th scope="col">Sub_Categories</th>
+                                <th scope="col">Description</th>
                                 <th scope="col" >Status</th>
+                                <th scope="col" >Operate</th>
                             </tr>
                         </thead>
                         <tbody>

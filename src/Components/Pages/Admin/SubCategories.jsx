@@ -3,14 +3,13 @@ import AdminSide from './AdminSide';
 import "./admin.css"
 import AddSub from './AddSub';
 import axios from 'axios';
+import SubEdit from './SubEdit';
 
 function SubCategories() {
     let token = localStorage.getItem('token')
     console.log(token);
     // api data get 
     const [video, setVideo] = useState([])
-    const [deleteItem, setDeleteItem] = useState([]);
-    const [updateItem, setUpdateItem] = useState([])
     const getVideo = async () => {
         let reqOptions = {
             url: `${process.env.REACT_APP_BASE_URL}admin/video/subcategory`,
@@ -21,57 +20,37 @@ function SubCategories() {
             },
         }
         let response = await axios.request(reqOptions);
-        console.log(response.data.data);
         setVideo(response.data.data);
     }
     useEffect(() => {
         getVideo();
     }, [])
-    const deleteData = async (id) => {
-        const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}admin/video/subcategory/${id}`, {
+    const deleteData = async (post) => {
+        setVideo(video.filter((d) => d.id !== post.id))
+        const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}admin/video/subcategory/${post.id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             },
         });
-
-        setDeleteItem(res)
-        console.log(res);
     }
-    // code for updateData
-    // const updateData = async (id) => {
-    //     const res = await axios.put(`${process.env.REACT_APP_BASE_URL}admin/video/subcategory/${id}`);
-    // }
-    const updateData = async (id) => {
-        let res = await axios.put(`${process.env.REACT_APP_BASE_URL}admin/video/subcategory/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-        });
-        setUpdateItem(res)
-    }
-
-    const displayCategories = video.map((item) => {
-        let { id, name, categories } = item
+    const displayCategories = video.map((post) => {
+        let { id, name, category_id } = post
         return (
             <tr>
                 <th scope="row">{id}</th>
                 <td>{name}</td>
-                <td>{categories}</td>
+                <td>{category_id}</td>
 
                 <td>
                     <button type="button" class="btn btn-warning " style={{ color: "#082465 !important" }}
                         onClick={() => {
-                            deleteData(id)
+                            deleteData(post)
                         }}>
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                    <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}
-                        onClick={() => {
-                            updateData(id)
-                        }}>
-                        <i class="fas fa-pen"></i>
+                    <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
+                        <SubEdit id={id} name={name}/>
                     </button>
                     <button type="button" class="btn btn-warning ms-2" style={{ color: "#082465 !important" }}>
                         <i class="far fa-eye"></i>

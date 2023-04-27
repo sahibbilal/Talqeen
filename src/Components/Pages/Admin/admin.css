@@ -101,17 +101,17 @@
     cursor: pointer;
 }
 
-.sidebar-list-item>a {
+.sidebar-list-item> a {
     text-decoration: none;
     color: #fec913;
 }
-
+ 
 .sidebar-list-items {
     padding: 15px 20px 20px 18px;
 }
 
 .sidebar-list-items:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    /* background-color: rgba(255, 255, 255, 0.2); */
     cursor: pointer;
 }
 
@@ -119,6 +119,7 @@
     text-decoration: none;
     color: #fec913;
 }
+
 
 .sidebar-responsive {
     display: inline !important;

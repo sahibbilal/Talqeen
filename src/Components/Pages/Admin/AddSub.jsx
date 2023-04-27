@@ -17,7 +17,7 @@ function AddSub() {
         const token = localStorage.getItem('token');
         const formData = {
             name: data.name,
-            category_id: 19
+            category_id: data.category_id
         };
         const headers = {
             'Content-Type': 'application/json',

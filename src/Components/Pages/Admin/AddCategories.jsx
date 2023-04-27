@@ -14,7 +14,6 @@ function AddCategories() {
         const token = localStorage.getItem('token');
         const formData = {
             name: data.name,
-            category_id: 13,
         };
         console.log(formData);
         const headers = {
@@ -49,10 +48,10 @@ function AddCategories() {
                         <Form.Group className="mb-3" id="name">
                             <Form.Select aria-label="Default select example" {...data.register("name", { required: true })}>
                                 <option>Categories</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
+                                <option value="One">One</option>
+                                <option value="Two">Two</option>
+                                <option value="Three">Three</option>
+                                <option value="Four">Four</option>
                             </Form.Select>
                         </Form.Group>
 

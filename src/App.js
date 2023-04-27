@@ -24,6 +24,7 @@ import Login from './Components/Pages/Admin/Login';
 import PrivateRoute from './Components/Pages/Admin/PrivateRoute ';
 import MainRoute from './Components/Header/MainRoute';
 import Notfound from './Components/Pages/NotFound/Notfound';
+import Edit from './Components/Pages/Admin/Edit';
 function App() {
 
   return (
@@ -44,7 +45,6 @@ function App() {
           <Admin />
         </PrivateRoute>} />
         <Route path='/adminvideo' element={<AdminVideo />} />
-        <Route path='/addvideo/:id' element={<AddVideo />} />
         <Route path='/Admincategories' element={<Categories />} />
         <Route path='/subCategories' element={<SubCategories />} />
         <Route path='/user' element={<User />} />
